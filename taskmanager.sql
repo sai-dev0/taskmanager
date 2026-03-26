@@ -39,3 +39,26 @@ LEFT JOIN users ON tasks.user_id = users.id;
 SELECT users.username, tasks.title
 FROM users
 LEFT JOIN tasks ON tasks.user_id = users.id;
+
+-- Сколько задач у каждого пользователя
+SELECT users.username, COUNT(tasks.id) as task_count
+FROM users
+LEFT JOIN tasks ON tasks.user_id = users.id
+GROUP BY users.username;
+
+-- Только невыполненные задачи
+SELECT title, user_id
+FROM tasks
+WHERE is_done = FALSE;
+
+-- Задачи в алфавитном порядке
+SELECT title
+FROM tasks
+ORDER BY title DESC;
+
+-- Найди всех пользователей у которых больше 1 задачи
+SELECT users.username, COUNT(tasks.id) as task_count
+FROM users
+LEFT JOIN tasks ON tasks.user_id = users.id
+GROUP BY users.username
+HAVING COUNT(tasks.id) > 1;
